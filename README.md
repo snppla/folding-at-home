@@ -10,5 +10,6 @@ Set how much relative processing power you want to be used. It can be light, med
 ##### PASSKEY
 Set an optional passkey
 ## Running
-``` docker run --rm -it -e USERNAME=snppla -e TEAM=224497 -e POWER=full snppla/folding-at-home
+``` 
+docker run --rm -it -e USERNAME=snppla -e TEAM=224497 -e POWER=full snppla/folding-at-home
 ```
