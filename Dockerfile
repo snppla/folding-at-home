@@ -6,20 +6,22 @@
 
 # Set environment variables USERNAME, TEAM, and POWER to customize your Folding client.
 
-FROM fedora
+FROM centos:7
 
 # If you set USERNAME to Anonymous, the folding@home client pauses for 5 minutes, but will then begin processing data.
-ENV USERNAME Anonymous
-ENV TEAM 0
-ENV POWER medium
+ENV USERNAME snppla
+ENV TEAM 224497
+ENV POWER full
+ENV PASSKEY=
 
 # Install updates
 RUN yum update -y
 
 # Install Folding@home
-RUN rpm -i https://fah.stanford.edu/file-releases/public/release/fahclient/centos-5.3-64bit/v7.3/fahclient-7.3.6-1.x86_64.rpm
+RUN rpm -i https://folding.stanford.edu/releases/public/release/fahclient/centos-5.3-64bit/v7.4/fahclient-7.4.4-1.x86_64.rpm
 ADD config.xml /etc/fahclient/
+ADD run.sh /run.sh
 RUN chown fahclient:root /etc/fahclient/config.xml
-RUN sed -i -e "s/{{USERNAME}}/$USERNAME/;s/{{TEAM}}/$TEAM/;s/{{POWER}}/$POWER/" /etc/fahclient/config.xml
 
-CMD /etc/init.d/FAHClient start && tail -F /var/lib/fahclient/log.txt
+CMD /run.sh
+
