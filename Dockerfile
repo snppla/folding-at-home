@@ -9,9 +9,9 @@
 FROM centos:7
 
 # If you set USERNAME to Anonymous, the folding@home client pauses for 5 minutes, but will then begin processing data.
-ENV USERNAME snppla
-ENV TEAM 224497
-ENV POWER full
+ENV USERNAME Anonymous
+ENV TEAM 0
+ENV POWER medium
 ENV PASSKEY=
 
 # Install updates
