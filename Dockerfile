@@ -6,7 +6,7 @@
 
 # Set environment variables USERNAME, TEAM, and POWER to customize your Folding client.
 
-FROM centos:7
+FROM nvidia/cuda:8.0-runtime-ubuntu16.04
 
 # If you set USERNAME to Anonymous, the folding@home client pauses for 5 minutes, but will then begin processing data.
 ENV USERNAME Anonymous
@@ -15,10 +15,12 @@ ENV POWER medium
 ENV PASSKEY=
 
 # Install updates
-RUN yum update -y
+RUN apt-get update && apt-get upgrade -y  && apt-get install -y wget bzip2 
 
 # Install Folding@home
-RUN rpm -i https://folding.stanford.edu/releases/public/release/fahclient/centos-5.3-64bit/v7.4/fahclient-7.4.4-1.x86_64.rpm
+#RUN rpm -i https://folding.stanford.edu/releases/public/release/fahclient/centos-5.3-64bit/v7.4/fahclient-7.4.4-1.x86_64.rpm
+RUN wget https://folding.stanford.edu/releases/public/release/fahclient/debian-testing-64bit/v7.4/fahclient_7.4.4_amd64.deb
+RUN dpkg -i fahclient_7.4.4_amd64.deb
 ADD config.xml /etc/fahclient/
 ADD run.sh /run.sh
 RUN chown fahclient:root /etc/fahclient/config.xml
